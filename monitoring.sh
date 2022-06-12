@@ -24,7 +24,7 @@ printf "#Last boot: "
 who -b | awk '{printf $3" "$4"\n"}'
 
 printf "#LVM use: "
-if [ $(lsblk | grep "lvm" | wc -l) -eq 0 ];
+if [ $(lsblk | awk '{print $6}' | grep "lvm" | wc -l) -eq 0 ];
 then echo no; else echo yes; fi
 
 tcp=$(ss | grep -i "tcp" | wc -l)
@@ -40,7 +40,8 @@ printf "#Network: IP $ip ($mac)\n"
 cnt_sudo=$(journalctl | grep "sudo" | wc -l)
 printf "#Sudo : $cnt_sudo cmd \n"
 
-	 Broadcast message from root@heeskim42 (somewhere) (Wed Jun  1 20:20:01 2022):
+: <<'END'
+Broadcast message from root@heeskim42 (somewhere) (Wed Jun  1 20:20:01 2022):
 
 	 #Architecture: Linux heeskim42 5.10.0-14-amd64 #1 SMP Debian 5.10.113-1 (2022-0
 	 4-29) x86_64 GNU/Linux
@@ -55,4 +56,4 @@ printf "#Sudo : $cnt_sudo cmd \n"
 	 #User log: 2
 	 #Network: IP 10.0.2.15  (08:00:27:d9:fe:4d)
 	 #Sudo : 47 cmd
-
+END
